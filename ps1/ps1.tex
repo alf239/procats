@@ -1,0 +1,40 @@
+
+
+\section{Two small categories}
+
+Objects: 1, 2
+
+Morphisms: 
+
+1 -> 1: id1
+2 -> 2: id2
+1 -> 2: f
+2 -> 1: (empty set)
+
+Composition:
+  id1 . id1 = id1
+  id2 . id2 = id2
+  f . id1 = f
+  id2 . f = f
+
+Right unit: f . id1 = f
+Left unit: id2 . f = f
+
+Associativity: as we only compose with identity, the associativity is trivial,
+
+   id2 . f . id1 (the only 3 morphisms) = (id2 . f) . id1 = id2 . (f . id1) = f
+
+\section{Is it an isomorphism?}
+
+Yes. Since g . f :: c -> c and f . g :: d -> d both must be valid morphisms
+in the category, and the only morphisms c -> c and d -> d are the identities,
+then g . f = id_c and f . g = id_d, q.e.d.
+
+\section{ Almost categories. }
+
+TODO
+
+\section{ Monoids. }
+
+
+
