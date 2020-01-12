@@ -1,5 +1,9 @@
+%%1
+\section{ Functions in mathematics and Haskell. }
 
+TODO %% Insert the sources from `ps1.hs`, add the description
 
+%% 2
 \section{Two small categories}
 
 Objects: 1, 2
@@ -24,18 +28,29 @@ Associativity: as we only compose with identity, the associativity is trivial,
 
    id2 . f . id1 (the only 3 morphisms) = (id2 . f) . id1 = id2 . (f . id1) = f
 
+%% 3
 \section{ Is it an isomorphism? }
 
 Yes. Since g . f :: c -> c and f . g :: d -> d both must be valid morphisms
 in the category, and the only morphisms c -> c and d -> d are the identities,
 then g . f = id_c and f . g = id_d, q.e.d.
 
+%% 4
 \section{ Almost categories. }
 
 TODO
 
+%% 5
 \section{ Monoids. }
 
+TODO
+
+%% 6
+\section{ Preorders }
+
+TODO
+
+%% 7
 \section{ Church Booleans. }
 
 True = λx.(λy.x)
@@ -50,6 +65,7 @@ False OR True  = OR False True = λp.(λq.(pp)q) False True
                = λq.(False False)q True = (False False) True =
                = (λx.(λy.y) False) True = λy.y True = True = λx.(λy.x)
 
+%% 8
 \section{ Y Combinator. }
 
 Y = λf.(λx.f(xx))(λx.f(xx))
@@ -66,20 +82,27 @@ g h x | x == 1    = 1
 
 then for example 
 
-Y g 4 = (λx.g(xx))(λx.g(xx)) 4
-      = g ((λx.g(xx)) (λx.g(xx))) 4
-      = g (Y g) 4
-      = g (g (g (g (g (...))))) 4
-      = 4 * (g (g (g ...)) 3)
-      = 4 * 3 * (g (g (g ...)) 2)
-      = 4 * 3 * 2 * (g (g (g ...)) 1)
+Y g 4 = g (Y g) 4
+      = 4 * ((Y g) 3)
+      = 4 * (g (Y g) 3)
+      = 4 * 3 * ((Y g) 2)
+      = 4 * 3 * (g (Y g) 2)
+      = 4 * 3 * 2 * ((Y g) 1)
+      = 4 * 3 * 2 * (g (Y g) 1)
       = 4 * 3 * 2 * 1
       = 24, also known as 4!
 
-Here, we have a definition of a recursive function (factoral) in a language that does
+Here, we have a definition of a recursive function (factorial) in a language that does
 not directly allow recursion. Of course, that requires lazy evaluation ---
 and the definitions for naturals and multiplication.
 
+%% 9
+\section{ Defining a toy category in Haskell. }
 
+TODO %% Insert the sources from `ps1.hs`, add the description
 
+%% 10
+\section{ Grade the pset. }
+
+TODO
 
