@@ -11,8 +11,13 @@ g :: Int -> Int
 g = (+ 1)
 
 semi :: (a -> b) -> (b -> c) -> a -> c
-semi f g = g . f
+semi p q = q . p
 
+h :: Int -> Int
+h = f . g
+
+i :: Int -> Int
+i = f `semi` g
 
 class Category obj mor | mor -> obj where
     dom :: mor -> obj
@@ -20,26 +25,38 @@ class Category obj mor | mor -> obj where
     idy :: obj -> mor
     cmp :: mor -> mor -> Maybe mor
 
-data Obj2 = One | Two
-data Mor2 = Id1 | Id2 | F
+data ToyObj = One | Two
+data ToyMor = Id1 | Id2 | F
 
-instance Category Obj2 Mor2 where
-    dom Id1 = One
-    dom Id2 = Two
-    dom F = One
-    cod Id1 = One
-    cod Id2 = Two
-    cod F = Two
-    idy One = Id1
-    idy Two = Id2
-    cmp Id1 F = Just F
-    cmp F Id2 = Just F
-    cmp _ _ = Nothing
+toydom :: ToyMor -> ToyObj
+toydom Id1 = One
+toydom Id2 = Two
+toydom F   = One
+
+toycod :: ToyMor -> ToyObj
+toycod Id1 = One
+toycod Id2 = Two
+toycod F   = Two
+
+toyid :: ToyObj -> ToyMor
+toyid One = Id1
+toyid Two = Id2
+
+toycmp :: ToyMor -> ToyMor -> Maybe ToyMor
+toycmp Id1 Id1 = Just Id1
+toycmp Id1 F   = Just F
+toycmp F   Id2 = Just F
+toycmp Id2 Id2 = Just Id2
+toycmp _   _   = Nothing
+
+instance Category ToyObj ToyMor where
+    dom = toydom
+    cod = toycod
+    idy = toyid
+    cmp = toycmp
 
 main :: IO ()
-main = let h = f . g
-           i = f `semi` g
-       in do putStrLn "PS1 Q1"
-             print $ h 2
-             print $ i 2
+main = do putStrLn "PS1 Q1"
+          print $ h 2
+          print $ i 2
 
