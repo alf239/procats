@@ -1,116 +1,80 @@
-%%1
-\section{ Functions in mathematics and Haskell. }
+\documentclass{tufte-handout}
 
-TODO %% Insert the sources from `ps1.hs`, add the description
+\title{Problem Set 1\thanks{CQF cohort June 2017}}
 
-%% 2
-\section{Two small categories}
+\author{Alexey Filippov\thanks{Kamchatka Ltd}}
 
-Objects: 1, 2
+%\date{12 January 2020} % without \date command, current date is supplied
 
-Morphisms: 
+%\geometry{showframe} % display margins for debugging page layout
 
-1 -> 1: id1
-2 -> 2: id2
-1 -> 2: f
-2 -> 1: (empty set)
+\usepackage{graphicx} % allow embedded images
+  \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+  \graphicspath{{graphics/}} % set of paths to search for images
+\usepackage{amsmath}  % extended mathematics
+\usepackage{booktabs} % book-quality tables
+\usepackage{units}    % non-stacked fractions and better unit spacing
+\usepackage{multicol} % multiple column layout facilities
+\usepackage{lipsum}   % filler text
+\usepackage{fancyvrb} % extended verbatim environments
+  \fvset{fontsize=\normalsize}% default font size for fancy-verbatim environments
 
-Composition:
-  id1 . id1 = id1
-  id2 . id2 = id2
-  f . id1 = f
-  id2 . f = f
+\usepackage{minted}
 
-Right unit: f . id1 = f
-Left unit: id2 . f = f
+% Standardize command font styles and environments
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
 
-Associativity: as we only compose with identity, the associativity is trivial,
+\newcommand{\ito}{It\^o}
+\newcommand{\ttoT}{\stackrel{t \rightarrow T}{\sim}}
+\newcommand{\expect}[1]{\mathop{\mathbb{E}\left[ #1\right]}}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pdd}[2]{\frac{\partial^2 #1}{\partial {#2}^2}}
+\newcommand{\od}[2]{\frac{d #1}{d #2}}
+\newcommand{\odd}[2]{\frac{d^2 #1}{d {#2}^2}}
+\newcommand{\half}{\frac{1}{2}}
 
-   id2 . f . id1 (the only 3 morphisms) = (id2 . f) . id1 = id2 . (f . id1) = f
+\DeclareMathOperator\erfc{erfc}
 
-%% 3
-\section{ Is it an isomorphism? }
+\begin{document}
 
-Yes. Since g . f :: c -> c and f . g :: d -> d both must be valid morphisms
-in the category, and the only morphisms c -> c and d -> d are the identities,
-then g . f = id_c and f . g = id_d, q.e.d.
+\maketitle% this prints the handout title, author, and date
+\begin{abstract}
+This document is the report part of the homework.
+The required results and diagrams are provided; the source
+code is only included where it was necessary to illustrate the approach.
 
-%% 4
-\section{ Almost categories. }
+Attached, please find the full Haskell source code for all the tasks.
+\end{abstract}
 
-TODO
 
-%% 5
-\section{ Monoids. }
-
-TODO
-
-%% 6
-\section{ Preorders }
-
-TODO
-
-%% 7
-\section{ Church Booleans. }
-
-True = λx.(λy.x)
-False = λx.(λy.y)
-AND = λp.(λq.(pq)p)
-OR = λp.(λq.(pp)q)
-
-True AND False = AND True False = λp.(λq.(pq)p) True False 
-               = (λq.(True q) True) False = (True False) True 
-               = (λx.(λy.x) False) True = λy.False True = False = λx.(λy.y)
-False OR True  = OR False True = λp.(λq.(pp)q) False True
-               = λq.(False False)q True = (False False) True =
-               = (λx.(λy.y) False) True = λy.y True = True = λx.(λy.x)
-
-%% 8
-\section{ Y Combinator. }
-
-Y = λf.(λx.f(xx))(λx.f(xx))
-
-Y g = (λx.g(xx))(λx.g(xx))
-    = g ((λx.g(xx)) (λx.g(xx)))
-    = g (Y g)
-    = g (g (g (g (g ...))))
-
-and it never ends if we use it like that. Still, if we take (using Haskell notation)
-
-g h x | x == 1    = 1
-      | otherwise = x * (h $ x - 1)
-
-then for example 
-
-Y g 4 = g (Y g) 4
-      = 4 * ((Y g) 3)
-      = 4 * (g (Y g) 3)
-      = 4 * 3 * ((Y g) 2)
-      = 4 * 3 * (g (Y g) 2)
-      = 4 * 3 * 2 * ((Y g) 1)
-      = 4 * 3 * 2 * (g (Y g) 1)
-      = 4 * 3 * 2 * 1
-      = 24, also known as 4!
-
-Here, we have a definition of a recursive function (factorial) in a language that does
-not directly allow recursion. Of course, that requires lazy evaluation ---
-and the definitions for naturals and multiplication.
-
-%% 9
-\section{ Defining a toy category in Haskell. }
-
-TODO %% Insert the sources from `ps1.hs`, add the description
-
-%% 10
-\section{ Grade the pset. }
-
-TODO
+\input{ps1_q1}
+\input{ps1_q2}
+\input{ps1_q3}
+\input{ps1_q4}
+\input{ps1_q5}
+\input{ps1_q6}
+\input{ps1_q7}
+\input{ps1_q8}
+\input{ps1_q9}
+\input{ps1_q10}
 
 
 \section{ References }
 
-Vadim Radionov vadim.radionov@gmail.com private converstions
+Vadim Radionov vadim.radionov@gmail.com private conversations
 
 Terence Tao Analysis I
 
 
+
+\bibliography{sample-handout}
+\bibliographystyle{plainnat}
+
+\end{document}
