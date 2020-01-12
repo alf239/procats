@@ -1,8 +1,12 @@
 %% 9
 \section{ Defining a toy category in Haskell. }
 
-%% Insert the sources from `ps1.hs`, add the description
+Since we only have two oblects and three arrows, we can simply encode those as ADTs. 
+To encode objects, we need to choose between a standard \mintinline{haskell}{Either () ()} and a custom data type;
+the latter seems to be more readable:
 
 \inputminted[firstline=28,
              lastline=56,
              fontsize=\footnotesize, tabsize=4]{haskell}{ps1.hs}
+
+It is easy to see that the code closely follows the answer to question 2.

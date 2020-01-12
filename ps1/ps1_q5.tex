@@ -1,4 +1,45 @@
 %% 5
 \section{ Monoids. }
 
-\lipsum[1]
+\subsection{Natural numbers.} Natural numbers form a monoid with respect to addition.
+To prove that, we need to show that in $\mathbb{N}$ we have an operation $+$ that has a left and right identity.
+This identity element is zero, as indeed
+\begin{align*}
+\forall n \in \mathbb{N},&& 0 + n &= n && \text{by definition of addition} \\
+                         && n + 0 &= n && \text{Lemma 2.2.2 in Tao's {\em Analysis I}}
+\end{align*}
+Addition is associative, too, as per Proposition 2.2.5 (Exercise 2.2.1) in {\em Analysis I}\cite{tao2016analysis}.
+We omit the proof here, as in the next part of the question we'll need to prove the same for a list --- and we can always 
+prove associativity of naturals by reduction to lists, if we choose a (length of) string of 1 as a representation of natural numbers.
+
+\subsection{A string of 0 and 1.}
+Strings form a monoid with respect to concatenation. Concatenation of two strings is a string, so the type checks;
+concatenation with an empty string is the original string; and, intuitively, concatenation seems to be associative. 
+
+\newcommand\cat{+\kern-1.3ex+\kern0.8ex} % https://tex.stackexchange.com/questions/4194/how-to-typeset-haskell-operator-and-friends
+More formally, concatenation is Haskell is defined as (we omit compiler directives here for clarity)
+\begin{minted}{haskell}
+(++) :: [a] -> [a] -> [a]
+(++) []     ys = ys
+(++) (x:xs) ys = x : xs ++ ys
+\end{minted}
+Ignoring infinite lists for the sake of this exercise, we can see that from the first clause, \mintinline{haskell}{[]} is indeed a left unit. 
+
+Right unit is trickier, but we can follow Tao's Lemma 2.2.2: The base case, $[] \cat [] = []$ holds as we know that \mintinline{haskell}{[]} 
+is a left unit. Now suppose inductively that $xs \cat [] = xs.$ We wish to show that $(x:xs) \cat [] = (x:xs)$. 
+From the second clause in the function definition, $(x:xs) \cat [] = x : (xs \cat []) = x : xs,$ and that closes the induction.
+
+Tao leaves the proof of associativity to the reader, so we cannot avoid proving that. Since the string, being a list in Haskell, is an inductive data type,
+it is natural to use induction again. We consider concatenation $as \cat bs \cat cs$ and would like to show that $as \cat (bs \cat cs) = (as \cat bs) \cat cs.$
+Base case, $[] \cat (bs \cat cs) = ([] \cat bs) \cat cs,$ is trivial as \mintinline{haskell}{[]} is a left unit by definition of concatenation.
+Now suppose that associativity holds for $as \cat (bs \cat cs) = (as \cat bs) \cat cs.$ We want to show that $(a : as) \cat (bs \cat cs) = ((a : as) \cat bs) \cat cs:$
+\begin{align*}
+(a : as) \cat (bs \cat cs) &= a : (as \cat (bs \cat cs)) = && \text{second clause of definition} \\
+                           &= a : ((as \cat bs) \cat cs) = && \text{from inductive hypothesis} \\
+                           &= (a : (as \cat bs)) \cat cs = && \text{reversed second clause} \\
+                           &= ((a : as) \cat bs) \cat cs && \text{reversed second clause again} 
+\end{align*}
+and that closes the induction.
+
+Note that we never used the actual list elements here; indeed, the function definition is generic, and does not know what the element type is. 
+So if we use \mintinline{haskell}{Either One Zero} for \mintinline{haskell}{a} , our proof stays true for strings of ones and zeros. 

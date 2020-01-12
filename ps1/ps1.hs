@@ -10,14 +10,14 @@ f x = x * x
 g :: Int -> Int
 g = (+ 1)
 
-semi :: (a -> b) -> (b -> c) -> a -> c
-semi p q = q . p
+andThen :: (a -> b) -> (b -> c) -> a -> c
+andThen = flip (.)
 
 h :: Int -> Int
 h = f . g
 
 i :: Int -> Int
-i = f `semi` g
+i = f `andThen` g
 
 class Category obj mor | mor -> obj where
     dom :: mor -> obj
