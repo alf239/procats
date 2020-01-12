@@ -1,8 +1,16 @@
 %% ps1_q1.tex
-\section{ Functions in mathematics and Haskell. }
-
-TODO %% Insert the sources from `ps1.hs`, add the description
+\section{ Functions in mathematics and Haskell. } 
+We're tasked with implementation of two base functions in Haskell, $f(x) := x^2$ and $g(x) := x + 1.$
+These are pretty straightforward:
 \inputminted[firstline=7,
+             lastline=11,
+             fontsize=\footnotesize, tabsize=4]{haskell}{ps1.hs}
+In order to implement the and-then composition, we introduce a helper function, {\tt semi} for $\fatsemi$:
+\inputminted[firstline=13,
+             lastline=14,
+             fontsize=\footnotesize, tabsize=4]{haskell}{ps1.hs}
+Now we can implement both $h = f \circ g$ and $i = f \fatsemi g$:
+\inputminted[firstline=16,
              lastline=20,
              fontsize=\footnotesize, tabsize=4]{haskell}{ps1.hs}
-             
+and the answers are as follows: $h(2) = 9,$ $i(2) = 5.$
