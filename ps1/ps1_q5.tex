@@ -8,7 +8,7 @@ This identity element is zero, as indeed
 \forall n \in \mathbb{N},&& 0 + n &= n && \text{by definition of addition} \\
                          && n + 0 &= n && \text{Lemma 2.2.2 in Tao's {\em Analysis I}}
 \end{align*}
-Addition is associative, too, as per Proposition 2.2.5 (Exercise 2.2.1) in {\em Analysis I}\cite{tao2016analysis}.
+Addition is associative, too, as per Proposition 2.2.5 (Exercise 2.2.1) in {\em Analysis I}\cite{tao2016}.
 We omit the proof here, as in the next part of the question we'll need to prove the same for a list --- and we can always 
 prove associativity of naturals by reduction to lists, if we choose a (length of) string of 1 as a representation of natural numbers.
 
@@ -17,7 +17,7 @@ Strings form a monoid with respect to concatenation. Concatenation of two string
 concatenation with an empty string is the original string; and, intuitively, concatenation seems to be associative. 
 
 \newcommand\cat{+\kern-1.3ex+\kern0.8ex} % https://tex.stackexchange.com/questions/4194/how-to-typeset-haskell-operator-and-friends
-More formally, concatenation is Haskell is defined as (we omit compiler directives here for clarity)
+More formally, concatenation is Haskell is defined\cite{base-src} as (we omit compiler directives here for clarity)
 \begin{minted}{haskell}
 (++) :: [a] -> [a] -> [a]
 (++) []     ys = ys
@@ -35,11 +35,11 @@ Base case, $[] \cat (bs \cat cs) = ([] \cat bs) \cat cs,$ is trivial as \mintinl
 Now suppose that associativity holds for $as \cat (bs \cat cs) = (as \cat bs) \cat cs.$ We want to show that $(a : as) \cat (bs \cat cs) = ((a : as) \cat bs) \cat cs:$
 \begin{align*}
 (a : as) \cat (bs \cat cs) &= a : (as \cat (bs \cat cs)) = && \text{second clause of definition} \\
-                           &= a : ((as \cat bs) \cat cs) = && \text{from inductive hypothesis} \\
+                           &= a : ((as \cat bs) \cat cs) = && \text{from induction hypothesis} \\
                            &= (a : (as \cat bs)) \cat cs = && \text{reversed second clause} \\
-                           &= ((a : as) \cat bs) \cat cs && \text{reversed second clause again} 
+                           &= ((a : as) \cat bs) \cat cs   && \text{reversed second clause again} 
 \end{align*}
-and that closes the induction.
+and the induction is closed.
 
 Note that we never used the actual list elements here; indeed, the function definition is generic, and does not know what the element type is. 
-So if we use \mintinline{haskell}{Either One Zero} for \mintinline{haskell}{a} , our proof stays true for strings of ones and zeros. 
+So if we use \mintinline{haskell}{Either One Zero} for \mintinline{haskell}{a}, our proof stays true for strings of ones and zeros. 

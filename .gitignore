@@ -26,6 +26,9 @@ cabal.project.local~
 
 # LaTeX
 _minted-*
+*.bbl
+*.blg
 *.log
 *.out
+*.dvi
 *.pdf
