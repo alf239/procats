@@ -2,29 +2,33 @@
 %% 8
 \section{ Y Combinator. }
 
+$$
 Y = λf.(λx.f(xx))(λx.f(xx))
+$$
 
-Y g = (λx.g(xx))(λx.g(xx))
-    = g ((λx.g(xx)) (λx.g(xx)))
-    = g (Y g)
-    = g (g (g (g (g ...))))
-
+\begin{align*} 
+Y\ g &= (λx.g(xx))(λx.g(xx)) \\
+     &= g ((λx.g(xx)) (λx.g(xx))) \\
+     &= g (Y\ g) \\
+     &= g (g (g (g (g \ldots))))
+\end{align*} 
 and it never ends if we use it like that. Still, if we take (using Haskell notation)
-
+\begin{minted}{haskell}
 g h x | x == 1    = 1
       | otherwise = x * (h $ x - 1)
-
+\end{minted}
 then for example 
-
-Y g 4 = g (Y g) 4
-      = 4 * ((Y g) 3)
-      = 4 * (g (Y g) 3)
-      = 4 * 3 * ((Y g) 2)
-      = 4 * 3 * (g (Y g) 2)
-      = 4 * 3 * 2 * ((Y g) 1)
-      = 4 * 3 * 2 * (g (Y g) 1)
-      = 4 * 3 * 2 * 1
-      = 24, also known as 4!
+\begin{align*} 
+Y\ g\ 4 &= g\ (Y\ g)\ 4                \\
+        &= 4 * ((Y\ g)\ 3)             \\
+        &= 4 * (g\ (Y\ g)\ 3)          \\
+        &= 4 * 3 * ((Y\ g)\ 2)         \\
+        &= 4 * 3 * (g\ (Y\ g)\ 2)      \\
+        &= 4 * 3 * 2 * ((Y\ g)\ 1)     \\
+        &= 4 * 3 * 2 * (g\ (Y\ g)\ 1)  \\
+        &= 4 * 3 * 2 * 1               \\
+        &= 24,\text{ also known as } 4!
+\end{align*} 
 
 Here, we have a definition of a recursive function (factorial) in a language that does
 not directly allow recursion. Of course, that requires lazy evaluation ---

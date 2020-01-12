@@ -1,14 +1,20 @@
 %% 7
 \section{ Church Booleans. }
 
-True = λx.(λy.x)
-False = λx.(λy.y)
-AND = λp.(λq.(pq)p)
-OR = λp.(λq.(pp)q)
+\begin{align*} 
+ True &= λx.(λy.x)     \\
+False &= λx.(λy.y)     \\
+  AND &= λp.(λq.(pq)p) \\
+   OR &= λp.(λq.(pp)q) 
+\end{align*}
 
-True AND False = AND True False = λp.(λq.(pq)p) True False 
-               = (λq.(True q) True) False = (True False) True 
-               = (λx.(λy.x) False) True = λy.False True = False = λx.(λy.y)
-False OR True  = OR False True = λp.(λq.(pp)q) False True
-               = λq.(False False)q True = (False False) True =
-               = (λx.(λy.y) False) True = λy.y True = True = λx.(λy.x)
+
+\begin{align*} 
+True AND False &= AND True False = λp.(λq.(pq)p) True False = \\
+               &= (λq.(True q) True) False = (True False) True = \\ 
+               &= (λx.(λy.x) False) True = λy.False True = False = λx.(λy.y) \\
+\\
+False OR True  &= OR False True = λp.(λq.(pp)q) False True  \\
+               &= λq.(False False)q True = (False False) True = \\
+               &= (λx.(λy.y) False) True = λy.y True = True = λx.(λy.x)
+\end{align*} 

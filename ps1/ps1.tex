@@ -1,4 +1,4 @@
-\documentclass{tufte-handout}
+\documentclass{tufte-handout} % - https://tufte-latex.github.io/tufte-latex/
 
 \title{Problem Set 1\thanks{IAP 2020 18.S097:\\Programming with Categories}}
 
@@ -8,11 +8,23 @@
 
 %\geometry{showframe} % display margins for debugging page layout
 
+
 \usepackage{graphicx} % allow embedded images
   \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
   \graphicspath{{graphics/}} % set of paths to search for images
 \usepackage{amsmath}  % extended mathematics
+
 \usepackage{stmaryrd} % hollow semicolon - https://tex.stackexchange.com/questions/125012/what-is-the-latex-code-for-an-open-semicolon/125032
+
+% proper empty set sign - https://tex.stackexchange.com/questions/22798/nice-looking-empty-set
+\usepackage{amssymb}
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+% for lambda characters - https://tex.stackexchange.com/questions/34604/entering-unicode-characters-in-latex
+\usepackage[utf8]{inputenc} 
+\DeclareUnicodeCharacter{03BB}{\lambda}
+
 \usepackage{booktabs} % book-quality tables
 \usepackage{units}    % non-stacked fractions and better unit spacing
 \usepackage{multicol} % multiple column layout facilities
